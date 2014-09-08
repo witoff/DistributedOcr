@@ -34,7 +34,7 @@ while message = queue.receive_message do
     file_path = File.expand_path(file)
   end
 
-  system "ruby /opt/ocr/pdfocr/pdfocr.rb -i #{file_path} -o #{file_path}.processed.pdf"
+  system "ruby /opt/ocr/pdfocr/pdfocr.rb -i \"#{file_path}\" -o \"#{file_path}.processed.pdf\""
 
   # upload to s3
   puts "uploading"
