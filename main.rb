@@ -14,7 +14,6 @@ ocr = OCR::Ocr.new(BUCKET)
 
 puts "\nGetting Keys"
 puts ocr.getObjectKeys[1...10]
-#ocr.loadSqsp
 
 # Spinup nodes to process each file in SQS
 puts "\nStarting OCR"

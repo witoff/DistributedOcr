@@ -17,7 +17,7 @@ module OCR
     end
 
     def getPdfImageKeys
-      pdf_keys = self.getObjectKeys.select{|k| k.end_with? 'tiff.pdf' }
+      pdf_keys = self.getObjectKeys.select{|k| k.end_with? 'tiff.pdf' and not k.start_with? 'processed/' }
     end
 
     SQS_QUEUE_NAME = "ocr-pipeline"
@@ -59,12 +59,15 @@ module OCR
     def spawnWorkers
       log "spawning"
       #image = AWS.ec2.images[]
+      # params from; https://github.com/aws/aws-sdk-ruby/blob/6c55efba0393611850df07dcdbf97d8e196f3703/lib/aws/ec2/instance_collection.rb
       image = AWS.ec2.instances.create(
         image_id:'ami-864d84ee',
         count:3,
         key_name:'aws-east',
         user_data:File.read('container_ocr/userdata.txt'),
-        instance_type:'m3.large'
+        instance_type:'m3.large',
+        security_group_ids:'sg-09de8961', # port 22 only
+        iam_instance_profile:'sqs-s3-all'
       )
     end
   end

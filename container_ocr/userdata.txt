@@ -4,8 +4,8 @@ apt-get update
 # install docker
 curl -sSL https://get.docker.io/ubuntu/ | sudo sh
 
-# pull from Github
-git clone https://github.com/witoff/DistributedOcr.git /opt/ocr/
-
-# Build & Run
+# Build & Run.  Don't detach in background so we can
+#    still see logs in /var/log/cloud-init-output.log.
+# Run once for each processor on instance type.
+docker run witoff/ocr &
 docker run witoff/ocr
