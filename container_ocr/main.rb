@@ -1,9 +1,10 @@
 require 'aws-sdk'
-require_relative '../util'
 
-
-# configure params
-AwsUtil.config
+if Pathname.new('../util.rb').exist?
+  require_relative '../util'
+  # configure params
+  AwsUtil.config
+end
 
 # load messages into ocr-pipeline.  Run until
 SQS_QUEUE_NAME = "ocr-pipeline"
