@@ -1,5 +1,5 @@
 require 'aws-sdk'
-require '../util'
+require_relative '../util'
 
 
 # configure params
@@ -21,6 +21,8 @@ while message = queue.receive_message do
 
   bucket = AWS.s3.buckets[bucket_name]
   object = bucket.objects[key]
+
+  # pass these two args into docker container
 
   File.open(key, 'wb') do |file|
     object.read do |chunk|
