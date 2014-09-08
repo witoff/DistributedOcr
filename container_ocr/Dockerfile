@@ -50,7 +50,7 @@ RUN /usr/local/rvm/bin/rvm wrapper ruby-2.1.1 --no-prefix bundle ruby gem
 ###################
 # Install the App #
 ###################
-
+RUN ls
 RUN git clone https://github.com/witoff/DistributedOcr.git /opt/ocr/main
 RUN /usr/local/rvm/bin/bundle install --gemfile=/opt/ocr/main/container_ocr/Gemfile
 

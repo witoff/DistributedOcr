@@ -39,8 +39,8 @@ while message = queue.receive_message do
   # upload to s3
   puts "uploading"
   output = bucket.objects["processed/#{key}"]
-  output.write(:file => path_to_file)
+  output.write(:file => "#{file_path}.processed.pdf")
   puts "done"
-  
+
   message.delete
 end
