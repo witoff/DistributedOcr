@@ -22,4 +22,4 @@ ocr.clearQueue
 ocr.loadQueue
 
 # Finish with printing URLs of each new file
-ocr.spawnWorkers
+#ocr.spawnWorkers

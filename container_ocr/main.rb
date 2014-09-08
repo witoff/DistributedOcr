@@ -25,6 +25,7 @@ while message = queue.receive_message do
   # pass these two args into docker container
   file_path = nil
 
+  puts "downloading file"
   File.open(key, 'wb') do |file|
     object.read do |chunk|
        file.write(chunk)
@@ -34,6 +35,7 @@ while message = queue.receive_message do
     file_path = File.expand_path(file)
   end
 
+  puts "processing OCR"
   system "ruby /opt/ocr/pdfocr/pdfocr.rb -i \"#{file_path}\" -o \"#{file_path}.processed.pdf\""
 
   # upload to s3
