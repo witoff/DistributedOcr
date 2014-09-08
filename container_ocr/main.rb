@@ -37,8 +37,10 @@ while message = queue.receive_message do
   system "ruby pdfocr.rb -i #{file_path} -o #{file_path}.processed.pdf"
 
   # upload to s3
+  puts "uploading"
   output = bucket.objects["processed/#{key}"]
   output.write(:file => path_to_file)
-
+  puts "done"
+  
   message.delete
 end
