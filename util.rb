@@ -11,8 +11,10 @@ end
 
 class AwsUtil < Base
   def self.config
-    key,secret,region = File.read('.aws-config').lines.collect { |x| /=(.*)/.match(x).captures[0][1...-1] }
-    AWS.config(access_key_id: key, secret_access_key: secret, region: region)
+    if Pathname.new('.aws-config').exist?
+      key,secret,region = File.read('.aws-config').lines.collect { |x| /=(.*)/.match(x).captures[0][1...-1] }
+      AWS.config(access_key_id: key, secret_access_key: secret, region: region)
+    end
   end
 
   def self.listBuckets
