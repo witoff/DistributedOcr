@@ -11,10 +11,17 @@ end
 
 class AwsUtil < Base
   def self.config
-    if Pathname.new('.aws-config').exist?
-      key,secret,region = File.read('.aws-config').lines.collect { |x| /=(.*)/.match(x).captures[0][1...-1] }
+
+    # get the path of our config file
+    path = File.expand_path(File.dirname(__FILE__))
+    config_path = File.join(path, '.aws-config')
+
+    #if the config file exists, use it.  Otherwise assume we're using a role.
+    if Pathname.new(config_path).exist?
+      key,secret,region = File.read(config_path).lines.collect { |x| /=(.*)/.match(x).captures[0][1...-1] }
       AWS.config(access_key_id: key, secret_access_key: secret, region: region)
     end
+
   end
 
   def self.listBuckets

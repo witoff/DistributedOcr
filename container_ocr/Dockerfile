@@ -20,9 +20,9 @@ RUN apt-get install -y pdftk \
 # Setup Disk
 RUN mkdir /opt/ocr/
 
-##################
-# Install pdfocr #
-##################
+####################
+## Install pdfocr ##
+####################
 
 WORKDIR /opt/ocr/
 RUN curl -LkSs https://api.github.com/repos/gkovacs/pdfocr/tarball  -o master.tar.gz
@@ -30,30 +30,26 @@ RUN tar -xvzf master.tar.gz
 RUN rm master.tar.gz
 RUN mv gkovacs* pdfocr
 
-##############
-# MOVE FILES #
-##############
+################
+# Install Ruby #
+################
 
-COPY ./data /opt/ocr/data
+# Install rvm
+RUN apt-get install -y ps-watcher
+RUN curl -L https://get.rvm.io | bash -s stable
 
-RUN mkdir /.ssh
-COPY ./gc-datascience /.ssh/
-RUN chmod 700 /.ssh/*
+# Install package dependencies
+RUN /usr/local/rvm/bin/rvm requirements
 
-COPY ./process.rb /opt/ocr/pdfocr/
+# Install ruby
+RUN /usr/local/rvm/bin/rvm install ruby-2.1.1
 
-#######
-# RUN #
-#######
+# Set the version # with an rvm wrapper
+RUN /usr/local/rvm/bin/rvm wrapper ruby-2.1.1 --no-prefix bundle ruby gem
 
-WORKDIR /opt/ocr/pdfocr/
-ENTRYPOINT ["ruby", "process.rb"]
+###################
+# Install the App #
+###################
 
-# run with:
-#   docker build -t eva .
-# interactive tty with:
-#   docker run -i -t eva /bin/bash
-# run on files with
-#   docker run eva <filename>
-# drive all with:
-#   Dir.foreach('./data') { |f| system "docker run eva_debian " + f if f.include?'NCR' }
+RUN git clone https://github.com/witoff/DistributedOcr.git /opt/ocr/main
+RUN /usr/local/rvm/bin/bundle install --gemfile=/opt/ocr/main/container_ocr/Gemfile
