@@ -1,0 +1,8 @@
+#! /bin/bash
+
+# update and install pip
+apt-get update
+apt-get install -y python-pip
+
+# install docker
+curl -sSL https://get.docker.io/ubuntu/ | sudo sh
