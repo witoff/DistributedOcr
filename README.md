@@ -1,4 +1,6 @@
-## test
+## Distributed OCR
+
+Distributed a Use the tesseract OCR library 
 
 use ruby `pdfocr` project to convert data
 
