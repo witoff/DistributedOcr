@@ -6,4 +6,4 @@ source "https://rubygems.org"
 gem 'aws-sdk', '<2'
 
 # Fix the ruby #
-ruby '2.1.1'
+#ruby '2.1.1'

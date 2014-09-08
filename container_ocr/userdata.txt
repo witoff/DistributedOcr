@@ -1,8 +1,22 @@
 #! /bin/bash
 
 # update and install pip
+apt-add-repository -y ppa:brightbox/ruby-ng-experimental
 apt-get update
 apt-get install -y python-pip
 
 # install docker
 curl -sSL https://get.docker.io/ubuntu/ | sudo sh
+
+# pull from Github
+git clone https://github.com/witoff/DistributedOcr.git /opt/ocr/
+
+# Run ruby and pull from queue (make sure to run with correct role)
+apt-get install -y ruby2.1 ruby2.1-dev
+gem install bundler
+
+# install rbenv
+curl https://raw.githubusercontent.com/fesplugas/rbenv-installer/master/bin/rbenv-installer | bash
+rbenv install 2.1.1
+
+bundle install --gemfile=/opt/Gemfile
