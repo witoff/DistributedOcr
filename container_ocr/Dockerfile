@@ -53,3 +53,22 @@ RUN /usr/local/rvm/bin/rvm wrapper ruby-2.1.1 --no-prefix bundle ruby gem
 
 RUN git clone https://github.com/witoff/DistributedOcr.git /opt/ocr/main
 RUN /usr/local/rvm/bin/bundle install --gemfile=/opt/ocr/main/container_ocr/Gemfile
+
+
+#######
+# RUN #
+#######
+
+CMD ["/usr/local/rvm/bin/ruby", "/opt/ocr/main/main.rb"]
+
+#WORKDIR /opt/ocr/pdfocr/
+#ENTRYPOINT ["ruby", "process.rb"]
+
+# run with:
+#   docker build -t eva .
+# interactive tty with:
+#   docker run -i -t eva /bin/bash
+# run on files with
+#   docker run eva <filename>
+# drive all with:
+#   Dir.foreach('./data') { |f| system "docker run eva_debian " + f if f.include?'NCR' }
