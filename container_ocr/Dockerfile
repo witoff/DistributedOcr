@@ -59,4 +59,4 @@ RUN /usr/local/rvm/bin/bundle install --gemfile=/opt/ocr/main/container_ocr/Gemf
 # RUN #
 #######
 
-CMD ["/usr/local/rvm/bin/ruby", "/opt/ocr/main/main.rb"]
+CMD ["/usr/local/rvm/bin/ruby", "/opt/ocr/main/container_ocr/main.rb"]

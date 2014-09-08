@@ -58,8 +58,14 @@ module OCR
 
     def spawnWorkers
       log "spawning"
-
-
+      #image = AWS.ec2.images[]
+      image = AWS.ec2.instances.create(
+        image_id:'ami-864d84ee',
+        count:1,
+        key_name:'aws-east',
+        user_data:File.read('container_ocr/userdata.txt'),
+        instance_type:'m3.medium'
+      )
     end
   end
 end

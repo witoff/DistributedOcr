@@ -23,12 +23,22 @@ while message = queue.receive_message do
   object = bucket.objects[key]
 
   # pass these two args into docker container
+  file_path = nil
 
   File.open(key, 'wb') do |file|
     object.read do |chunk|
        file.write(chunk)
+       path = File.expand_path(File.dirname(__FILE__))
     end
+    # save the pilepath
+    file_path = File.expand_path(file)
   end
+
+  system "ruby pdfocr.rb -i #{file_path} -o #{file_path}.processed.pdf"
+
+  # upload to s3
+  output = bucket.objects["processed/#{key}"]
+  output.write(:file => path_to_file)
 
   message.delete
 end

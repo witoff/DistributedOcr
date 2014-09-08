@@ -1,7 +1,4 @@
 #! /bin/bash
-
-# update and install pip
-apt-add-repository -y ppa:brightbox/ruby-ng-experimental
 apt-get update
 
 # install docker
@@ -10,10 +7,5 @@ curl -sSL https://get.docker.io/ubuntu/ | sudo sh
 # pull from Github
 git clone https://github.com/witoff/DistributedOcr.git /opt/ocr/
 
-curl -L https://get.rvm.io | bash -s stable --ruby
-source /home/ubuntu/.rvm/scripts/rvm
-gem install bundler
-
-# Run ruby and pull from queue (make sure to run with correct role)
-bundle install --gemfile=/opt/ocr/Gemfile
-ruby /opt/ocr/main.rb
+# Build & Run
+docker run witoff/distributedocr
