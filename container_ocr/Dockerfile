@@ -1,6 +1,4 @@
 # OCR Dockerfilie
-
-# FROM ubuntu:14.04
 FROM debian:jessie
 
 RUN apt-get update
@@ -53,7 +51,6 @@ RUN /usr/local/rvm/bin/rvm wrapper ruby-2.1.1 --no-prefix bundle ruby gem
 RUN ls
 RUN git clone https://github.com/witoff/DistributedOcr.git /opt/ocr/main
 RUN /usr/local/rvm/bin/bundle install --gemfile=/opt/ocr/main/container_ocr/Gemfile
-
 
 #######
 # RUN #
