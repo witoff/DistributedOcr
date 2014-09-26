@@ -5,5 +5,7 @@ source "https://rubygems.org"
 #  and not backwards compatibile
 gem 'aws-sdk', '<2'
 
+gem 'aws-flow'
+
 # Fix the ruby #
 #ruby '2.1.1'
